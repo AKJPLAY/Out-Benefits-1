@@ -1,0 +1,187 @@
+
+{% style %}
+#shopify-section-{{ section.id }} {
+    --bg: {{ section.settings.background }};
+    --color: {{ section.settings.color }};
+}
+
+#shopify-section-{{ section.id }} {
+    background: var(--bg, #DED7CF);
+    padding: 50px 20px;
+    width: calc(100% - 40px);
+    border-radius: 20px;
+    margin: 20px auto;
+  }
+  #shopify-section-{{ section.id }} .inner-container {
+    width: 1370px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  #shopify-section-{{ section.id }} .inner-container .title {
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1.36363636;
+    text-align: center;
+    letter-spacing: -0.03em;
+    color: var(--color, #000000);
+  }
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }} .inner-container .title {
+      font-size: 32px;
+    }
+  }
+  #shopify-section-{{ section.id }} .inner-container .description {
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.35;
+    text-align: center;
+    letter-spacing: -0.03em;
+    color: var(--color, #000000);
+  }
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }} .inner-container .description {
+      font-size: 16px;
+    }
+  }
+  #shopify-section-{{ section.id }} .inner-container .icon-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 80px;
+  }
+  @media screen and (max-width: 1000px) {
+    #shopify-section-{{ section.id }} .inner-container .icon-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }} .inner-container .icon-container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }} .inner-container .icon-container {
+      margin-top: 40px;
+    }
+  }
+  #shopify-section-{{ section.id }} .inner-container .icon-container .icon-box {
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .inner-container .icon-container .icon-box .icon-image {
+    width: 70px;
+    height: 70px;
+    background: #FFFFFF;
+    border-radius: 66px;
+    margin: 10px 0;
+  }
+  #shopify-section-{{ section.id }} .inner-container .icon-container .icon-box .icon-title {
+    font-family: "Crimson Pro";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.17;
+    text-align: center;
+    color: var(--color, #000000);
+    margin: 10px 0;
+  }
+  #shopify-section-{{ section.id }} .inner-container .icon-container .icon-box .icon-description {
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--color, #000000);
+    margin: 10px 0;
+  }
+
+{% endstyle %}
+<div class="inner-container">
+    <h2 class="title">
+        {{ section.settings.title }}
+    </h2>
+    <div class="description rte">
+        {{ section.settings.description }}
+    </div>
+    <div class="icon-container">
+        {% for block in section.blocks %}
+            <div class="icon-box" {{ block.shopify_attributes }}>
+                {{ block.settings.icon | img_url: '250x' | img_tag: block.settings.icon , 'icon-image' }}
+                <h3 class="icon-title">
+                    {{ block.settings.title }}
+                </h3>
+                <div class="icon-description rte">
+                    {{ block.settings.description }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Our Benefits",
+    "class": "our-benefits",
+    "presets": [
+        {
+            "name":"Our Benefits"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Icon & Text",
+            "type": "image_picker",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "icon",
+                    "label": "Icon"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": " Designed for Small Kitchens"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Perfect for compact spaces, our organizers keep countertops clear and clutter-free.</p>"
+                }
+            ]
+        }
+    ],
+    "settings": [
+        {
+            "type": "inline_richtext",
+            "id": "title",
+            "label": "Title",
+            "default": "Our <strong>Benefits</strong>"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>The Organizers You Didn’t Know You Needed</p>"
+        },
+        {
+            "type": "color",
+            "id": "background",
+            "label": "Background",
+            "default": "#DED7CF"
+        },
+        {
+            "type": "color",
+            "id": "color",
+            "label": "Color",
+            "default": "#000000"
+        }
+        
+    ]
+}
+{% endschema %}
